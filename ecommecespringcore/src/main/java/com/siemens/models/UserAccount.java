@@ -1,5 +1,6 @@
 package com.siemens.models;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,11 @@ public class UserAccount {
     @Autowired
     //dependency injection
     private CreditCard creditCard;
+
+    @PostConstruct
+    public void initMethod(){
+        this.accountNo=56723;
+    }
 
     @PreDestroy
     public void beforeDestroy(){

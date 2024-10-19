@@ -1,6 +1,7 @@
 package com.siemens;
 
 import com.siemens.models.CreditCard;
+import com.siemens.models.Order;
 import com.siemens.models.UserAccount;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
@@ -29,6 +30,9 @@ public class Main {
         userAccount1.setAccountNo(123);
         //singleton
         System.out.println(userAccount);
+
+        Order order= (Order) applicationContext.getBean("order");
+        System.out.println(order.getPayment().makePayment(4236564));
 
 
     }
