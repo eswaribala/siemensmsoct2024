@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Configuration
+@Component
 public class UserAccount {
     private long accountNo;
     private String name;
