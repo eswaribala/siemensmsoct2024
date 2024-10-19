@@ -33,6 +33,7 @@ public class Main {
 
         Order order= (Order) applicationContext.getBean("order");
         System.out.println(order.getPayment().makePayment(4236564));
+        System.out.println(order.getUsers());
 
 
     }
