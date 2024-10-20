@@ -75,7 +75,7 @@ public class UserController {
 
     }
     @GetMapping("/v1.0/filterbyemail/{email}")
-    public ResponseEntity<GenericResponse> fetchUserAccountByEmal(@PathVariable("email") String email){
+    public ResponseEntity<GenericResponse> fetchUserAccountByEmail(@PathVariable("email") String email){
 
         List<UserAccount> userAccounts=this.userAccountService.getUserAccountByEmail(email);
         if(userAccounts.size()>0)
