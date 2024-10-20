@@ -74,7 +74,18 @@ public class UserController {
                     .body(new GenericResponse("User Account Not Found For the Given Id"+userId));
 
     }
+    @GetMapping("/v1.0/filterbyemail/{email}")
+    public ResponseEntity<GenericResponse> fetchUserAccountByEmal(@PathVariable("email") String email){
 
+        List<UserAccount> userAccounts=this.userAccountService.getUserAccountByEmail(email);
+        if(userAccounts.size()>0)
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new GenericResponse(userAccounts));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new GenericResponse("User Account Not Found For the Given Email"+email));
+
+    }
 
     @PutMapping("/v1.0")
     public ResponseEntity<GenericResponse> updateUserAccountByUserId(@RequestBody UpdateUserAccountRequest updateUserAccountRequest){

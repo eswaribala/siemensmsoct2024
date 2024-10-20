@@ -39,7 +39,7 @@ public class UserAccountServiceImpl implements UserAccountService{
 
     @Override
     public List<UserAccount> getUserAccountByEmail(String email) {
-        
+
         CriteriaBuilder criteriaBuilder=entityManager.getCriteriaBuilder();
         CriteriaQuery<UserAccount> criteriaQuery=criteriaBuilder.createQuery(UserAccount.class);
         Root<UserAccount> root=criteriaQuery.from(UserAccount.class);
