@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserAccount {
 
     @Id
@@ -30,12 +32,10 @@ public class UserAccount {
     private Gender gender;
 
     @Column(name="Email",nullable = false,length = 150)
-    @Email(message = "Enter valid mail address")
+
     private String email;
 
     @Column(name="Password",nullable = false,length = 10)
-    @NotNull
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,10}$",message = "Password must have mininum one digit,one lowercase and one upper case")
     private String password;
 
     @Column(name="DOB")

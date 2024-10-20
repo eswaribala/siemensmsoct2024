@@ -21,21 +21,32 @@ public class UserAccountServiceImpl implements UserAccountService{
 
     @Override
     public List<UserAccount> getAllUserAccounts() {
-        return null;
+        return this.userAccountRepository.findAll();
     }
 
     @Override
     public UserAccount getUserAccountById(String userId) {
-        return null;
+        return this.userAccountRepository.findById(userId).orElse(null);
     }
 
     @Override
     public UserAccount updateUserAccount(String userId, String email) {
-        return null;
+        UserAccount userAccount=getUserAccountById(userId);
+        if(userAccount!=null){
+            userAccount.setEmail(email);
+            return this.userAccountRepository.save(userAccount);
+        }else
+           return null;
     }
 
     @Override
     public boolean deleteUserAccount(String userId) {
-        return false;
+        boolean status=false;
+        UserAccount userAccount=getUserAccountById(userId);
+        if(userAccount!=null){
+           this.userAccountRepository.deleteById(userId);
+           status=true;
+        }
+           return status;
     }
 }
