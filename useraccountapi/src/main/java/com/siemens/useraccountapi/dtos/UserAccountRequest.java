@@ -19,7 +19,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class UserAccountRequest {
 
-
     private FullNameRequest fullName;
 
     private Gender gender;
