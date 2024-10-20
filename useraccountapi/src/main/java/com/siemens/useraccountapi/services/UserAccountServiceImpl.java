@@ -60,7 +60,7 @@ public class UserAccountServiceImpl implements UserAccountService{
     }
 
     @Override
-    @CachePut(cacheNames = "userAccount",key="userId")
+    @CachePut(cacheNames = "userAccount")
     public UserAccount updateUserAccount(String userId, String email) {
         UserAccount userAccount=this.userAccountRepository.findById(userId).orElseThrow(()->
                 new
@@ -72,7 +72,7 @@ public class UserAccountServiceImpl implements UserAccountService{
     }
 
     @Override
-    @CacheEvict(cacheNames="userAccount", allEntries = true)
+    @CacheEvict(cacheNames="userAccount",  allEntries = true)
     public boolean deleteUserAccount(String userId) {
         boolean status=false;
         UserAccount userAccount=getUserAccountById(userId);

@@ -9,12 +9,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Embeddable
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FullName {
+public class FullName  implements Serializable {
     @Column(name="First_Name",nullable = false,length = 50)
     @NotNull
     @Pattern(regexp = "^[a-zA-Z]+$", message = "First Name must contain only alphabets")
