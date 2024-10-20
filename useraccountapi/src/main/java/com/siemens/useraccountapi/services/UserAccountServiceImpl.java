@@ -3,6 +3,7 @@ package com.siemens.useraccountapi.services;
 import com.siemens.useraccountapi.exceptions.UserAccountNotFoundException;
 import com.siemens.useraccountapi.models.UserAccount;
 import com.siemens.useraccountapi.repositories.UserAccountRepository;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -10,6 +11,9 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +41,7 @@ public class UserAccountServiceImpl implements UserAccountService{
     }
 
     @Override
+    @Cacheable(cacheNames = "userAccount", key="#userId")
     public UserAccount getUserAccountById(String userId)  {
         return this.userAccountRepository.findById(userId)
                 .orElseThrow(()->new
@@ -55,6 +60,7 @@ public class UserAccountServiceImpl implements UserAccountService{
     }
 
     @Override
+    @CachePut(cacheNames = "userAccount",key="userId")
     public UserAccount updateUserAccount(String userId, String email) {
         UserAccount userAccount=this.userAccountRepository.findById(userId).orElseThrow(()->
                 new
@@ -66,6 +72,7 @@ public class UserAccountServiceImpl implements UserAccountService{
     }
 
     @Override
+    @CacheEvict(cacheNames="userAccount", allEntries = true)
     public boolean deleteUserAccount(String userId) {
         boolean status=false;
         UserAccount userAccount=getUserAccountById(userId);
