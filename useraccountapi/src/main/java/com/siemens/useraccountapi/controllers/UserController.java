@@ -25,7 +25,7 @@ public class UserController {
     @PostMapping("/v1.0")
     public ResponseEntity<GenericResponse> saveUserAccount(@Valid @RequestBody UserAccountRequest userAccountRequest){
            //DTO to Model
-        /*
+
         UserAccount userAccount=UserAccount.builder()
                 .fullName(FullName.builder()
                         .firstName(userAccountRequest.getFullName().getFirstName())
@@ -37,7 +37,7 @@ public class UserController {
                 .gender(userAccountRequest.getGender())
                 .build();
 
-         */
+
 
         UserAccount userAccountInstance=this.userAccountService.addUserAccount(userAccount);
         if(userAccountInstance!=null)
@@ -79,7 +79,7 @@ public class UserController {
     @PutMapping("/v1.0")
     public ResponseEntity<GenericResponse> updateUserAccountByUserId(@RequestBody UpdateUserAccountRequest updateUserAccountRequest){
 
-        UserAccount userAccount=this.userAccountService.updateUserAccount(updateUserAccountRequest.getUserId(),updateUserAccountRequest.getEmail())
+        UserAccount userAccount=this.userAccountService.updateUserAccount(updateUserAccountRequest.getUserId(),updateUserAccountRequest.getEmail());
         if(userAccount!=null)
             return ResponseEntity.status(HttpStatus.OK).body(
                     new GenericResponse(userAccount));
@@ -88,5 +88,19 @@ public class UserController {
                     .body(new GenericResponse("User Account Not Updated For the Given Id"+updateUserAccountRequest.getUserId()));
 
     }
+
+    @DeleteMapping("/v1.0/{userId}")
+    public ResponseEntity<GenericResponse> deleteUserAccountByUserId(@PathVariable("userId") String userId){
+
+
+        if(this.userAccountService.deleteUserAccount(userId))
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new GenericResponse("User Account Found and Deleted for Id"+userId));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new GenericResponse("User Account Not Found For the Given Id"+userId));
+
+    }
+
 
 }
