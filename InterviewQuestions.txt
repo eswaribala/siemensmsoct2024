@@ -1,0 +1,155 @@
+1. What is the Spring Framework?
+Answer: Spring is an open-source, lightweight framework that provides comprehensive infrastructure support for developing Java applications. It facilitates loose coupling through dependency injection and provides modules for various functionalities like AOP, transaction management, MVC, and more.
+2. What is Dependency Injection (DI) in Spring?
+Answer: Dependency Injection is a design pattern used to achieve loose coupling in an application. In Spring, DI allows injecting dependencies into objects at runtime, either through constructor injection or setter injection.
+3. What are the types of dependency injection in Spring?
+Answer: There are mainly two types:
+Constructor-based Injection: Dependencies are injected through the constructor.
+Setter-based Injection: Dependencies are injected through setter methods.
+4. What is Spring Bean?
+Answer: A Spring Bean is an object that is instantiated, assembled, and managed by the Spring IoC (Inversion of Control) container. Beans are defined in Spring configuration files (XML or annotations).
+5. What is the Spring IoC Container?
+Answer: The IoC (Inversion of Control) container is the core component of the Spring framework. It is responsible for managing the lifecycle and configuration of application objects. The container initializes objects, wires them together, configures them, and manages their complete lifecycle.
+6. What are the different scopes of Spring Beans?
+Answer: Spring supports the following bean scopes:
+Singleton: A single instance is created for the entire Spring container.
+Prototype: A new instance is created every time the bean is requested.
+Request: A single instance per HTTP request (Web-aware only).
+Session: A single instance per HTTP session (Web-aware only).
+Global session: A single instance per global HTTP session (Web-aware only, mostly for portlet-based apps).
+7. Explain the concept of Spring Boot and how it differs from Spring.
+Answer: Spring Boot is a framework built on top of the traditional Spring Framework. It simplifies the setup and development process by providing defaults for configuration, integrated servers (like Tomcat), and production-ready features. It allows developers to create stand-alone, production-grade Spring applications with minimal setup.
+8. What is Spring AOP?
+Answer: Spring AOP (Aspect-Oriented Programming) is a programming technique that allows separation of cross-cutting concerns like logging, security, or transaction management. It uses aspects to modularize these concerns.
+9. What are the key annotations in Spring MVC?
+Answer: Some key Spring MVC annotations are:
+@Controller: Marks a class as a Spring MVC controller.
+@RequestMapping: Maps HTTP requests to handler methods.
+@GetMapping, @PostMapping: Specialized mapping annotations.
+@ResponseBody: Indicates that the method return value is sent as the HTTP response body.
+@PathVariable, @RequestParam, @RequestBody: Used for passing parameters and request data.
+10. What is Spring Data JPA?
+
+- **Answer:** Spring Data JPA is a part of the larger Spring Data family, providing a JPA-based data access layer. It simplifies CRUD operations, custom queries, and implements the repository pattern.
+11. What is the role of @Component, @Service, @Repository, and @Controller in Spring?
+markdown
+
+- **Answer:** These are stereotype annotations that inform Spring to auto-detect and register these classes as beans:
+  - `@Component`: A generic stereotype for any Spring-managed component.
+  - `@Service`: Indicates that a class holds business logic.
+  - `@Repository`: Marks the data access layer (DAO).
+  - `@Controller`: Defines a web controller.
+12. What is a DispatcherServlet in Spring MVC?
+markdown
+
+- **Answer:** `DispatcherServlet` is the front controller in the Spring MVC framework. It intercepts incoming HTTP requests and delegates them to appropriate handler methods.
+13. What is the difference between @RequestParam and @PathVariable in Spring MVC?
+markdown
+
+- **Answer:** 
+  - `@RequestParam` is used to extract query parameters from the URL.
+  - `@PathVariable` is used to extract values from URI template variables.
+14. How does Spring manage transactions?
+
+- **Answer:** Spring supports declarative and programmatic transaction management. Using the `@Transactional` annotation, developers can declaratively manage transactions at the method or class level.
+15. What is the role of the @Autowired annotation?
+
+- **Answer:** `@Autowired` is used for automatic dependency injection in Spring. It injects the bean by type, using the configured IoC container.
+16. What is Spring Security?
+
+- **Answer:** Spring Security is a powerful and customizable authentication and access-control framework. It provides comprehensive security services for Java EE-based enterprise software applications.
+17. How can you create a custom annotation in Spring?
+
+- **Answer:** You can create a custom annotation by using the `@interface` keyword and combining it with meta-annotations like `@Target` and `@Retention`. You can then use it with AOP or other Spring features.
+18. What is the difference between @ComponentScan and @EntityScan in Spring Boot?
+
+- **Answer:** 
+  - `@ComponentScan` is used to scan and register Spring components, services, and configurations.
+  - `@EntityScan` is used to specify the packages to scan for JPA entities.
+19. How does Spring Boot handle externalized configuration?
+
+- **Answer:** Spring Boot allows externalized configuration using `application.properties` or `application.yml` files, environment variables, and command-line arguments. The `@Value` annotation or `@ConfigurationProperties` can be used to inject values from these configurations.
+20. What is the significance of the @SpringBootApplication annotation?
+
+- **Answer:** The `@SpringBootApplication` annotation is a combination of `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. It marks the main class of a Spring Boot application and triggers auto-configuration and component scanning.
+
+Advanced Spring Interview Questions
+What is the difference between @Transactional at the class level and the method level in Spring?
+
+Answer: When @Transactional is applied at the class level, it applies to all the public methods within that class. However, if @Transactional is placed on specific methods, it overrides the class-level annotation for those particular methods.
+How does Spring handle circular dependencies?
+
+Answer: Spring can resolve circular dependencies by using setter injection or field injection. Constructor injection typically fails in such cases due to the recursive loop of object creation. Spring uses a two-step process—initially creating bean instances and then populating their dependencies.
+What is a BeanFactoryPostProcessor and how is it different from a BeanPostProcessor?
+
+Answer:
+BeanFactoryPostProcessor: This interface allows modifying the bean definitions before the actual bean instances are created by the Spring container.
+BeanPostProcessor: This interface provides hooks for modifying bean instances after they are instantiated and dependency injection is done but before they are put into service.
+Explain the purpose of @EnableAspectJAutoProxy in Spring.
+
+Answer: @EnableAspectJAutoProxy is used to enable support for handling components marked with the @Aspect annotation, thereby allowing the configuration of aspect-oriented programming (AOP) using proxies.
+What are some common issues with @Transactional and how do you troubleshoot them?
+
+Answer: Common issues include:
+Proxy class limitations: @Transactional works only with public methods by default.
+Self-invocation: If a method within the same class calls another @Transactional method, the proxy is not utilized, and the transaction management may not work as expected.
+Rollback rules: By default, @Transactional only rolls back on unchecked exceptions (RuntimeException).
+Troubleshooting steps:
+
+Ensure the method is public.
+Externalize the method in another bean if self-invocation is needed.
+Use custom rollback rules if checked exceptions are involved.
+What is the purpose of @Async annotation in Spring?
+
+Answer: @Async is used to execute a method asynchronously. When applied, it allows the method to run in a separate thread without blocking the main thread.
+How would you implement caching in a Spring application?
+
+Answer: Caching can be implemented using the Spring Cache abstraction. You can use the @EnableCaching annotation to enable caching and then use annotations like @Cacheable, @CachePut, and @CacheEvict to manage caching behavior.
+Advanced Spring Boot Interview Questions
+What is a Spring Boot starter? Explain its purpose.
+
+Answer: Spring Boot starters are dependency descriptors that simplify the addition of common dependencies in a Spring-based project. For example, the spring-boot-starter-web includes all necessary dependencies to create a web application.
+Explain the internals of Spring Boot Auto-Configuration. How does it work?
+
+Answer: Auto-Configuration in Spring Boot works by scanning the classpath and using conditions (@ConditionalOnClass, @ConditionalOnBean, etc.) to determine which beans to create. The META-INF/spring.factories file lists auto-configuration classes, which contain logic to auto-configure beans based on the presence of certain classes, properties, or conditions.
+What is Spring Boot Actuator, and how can you secure endpoints?
+
+Answer: Spring Boot Actuator provides production-ready features like monitoring, metrics, health checks, and more. To secure Actuator endpoints, you can:
+Use Spring Security to secure specific endpoints using properties or programmatically.
+Configure access rules in the application.properties file using management.endpoints.web.exposure.include and management.endpoints.web.exposure.exclude.
+How do you profile-specific configurations in Spring Boot?
+
+Answer: Spring Boot uses the @Profile annotation to define beans for specific profiles. The spring.profiles.active property in application.properties or environment variables is used to activate profiles. Profile-specific configurations can also be kept in separate files like application-dev.properties or application-prod.yml.
+What is Spring Boot DevTools and how does it improve development productivity?
+
+Answer: Spring Boot DevTools is a set of development tools that enhance developer experience by providing features like automatic restarts, live reloads, and property defaults for faster development. It monitors classpath changes and automatically restarts the application when files are modified.
+Explain how to create a custom Spring Boot starter.
+
+Answer: To create a custom Spring Boot starter:
+Create a new Maven or Gradle project for the starter.
+Define dependencies and provide auto-configuration classes.
+Add the auto-configuration classes to META-INF/spring.factories.
+Package and publish the custom starter as a JAR file.
+How can you override default auto-configuration in Spring Boot?
+
+Answer: You can override auto-configuration by:
+Defining your own bean that matches the auto-configured bean's name.
+Using @ConditionalOnMissingBean in the auto-configuration class to prevent overwriting custom beans.
+Excluding specific auto-configuration classes using @SpringBootApplication(exclude = { ... }).
+What are some best practices for exception handling in Spring Boot REST APIs?
+
+Answer: Best practices include:
+Using @ControllerAdvice and @ExceptionHandler for centralized exception handling.
+Creating custom exception classes and using HTTP status codes appropriately.
+Returning meaningful error messages and avoiding exposing sensitive information.
+How does Spring Boot handle database migrations?
+
+Answer: Spring Boot supports database migrations using Flyway and Liquibase. You can configure these tools in application.properties and provide migration scripts in designated directories (db/migration for Flyway).
+What are the different ways to secure a Spring Boot application?
+
+Answer: Security can be implemented in several ways:
+Using Spring Security: Basic authentication, OAuth2, JWT, or custom authentication mechanisms.
+Role-based access control: Securing URLs with roles using @PreAuthorize or @Secured.
+Method-level security: Using annotations like @PreAuthorize, @PostAuthorize, and @RolesAllowed.
+Actuator endpoint security: Securing sensitive endpoints with custom configurations.
+
