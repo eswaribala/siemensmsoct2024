@@ -1,6 +1,7 @@
 package com.siemens.useraccountapi.controllers;
 
 import com.siemens.useraccountapi.dtos.GenericResponse;
+import com.siemens.useraccountapi.dtos.UpdateUserAccountRequest;
 import com.siemens.useraccountapi.dtos.UserAccountRequest;
 import com.siemens.useraccountapi.models.FullName;
 import com.siemens.useraccountapi.models.UserAccount;
@@ -10,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("useraccounts")
@@ -25,6 +25,7 @@ public class UserController {
     @PostMapping("/v1.0")
     public ResponseEntity<GenericResponse> saveUserAccount(@Valid @RequestBody UserAccountRequest userAccountRequest){
            //DTO to Model
+        /*
         UserAccount userAccount=UserAccount.builder()
                 .fullName(FullName.builder()
                         .firstName(userAccountRequest.getFullName().getFirstName())
@@ -36,6 +37,8 @@ public class UserController {
                 .gender(userAccountRequest.getGender())
                 .build();
 
+         */
+
         UserAccount userAccountInstance=this.userAccountService.addUserAccount(userAccount);
         if(userAccountInstance!=null)
             return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -46,4 +49,44 @@ public class UserController {
                             "because of invalid data"));
 
     }
+
+    @GetMapping("/v1.0")
+    public ResponseEntity<GenericResponse> fetchAllUserAccounts(){
+
+        List<UserAccount> userAccountList=this.userAccountService.getAllUserAccounts();
+        if(userAccountList.size()>0)
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new GenericResponse(userAccountList));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new GenericResponse("User Account Not Created Yet"));
+
+    }
+    @GetMapping("/v1.0/{userId}")
+    public ResponseEntity<GenericResponse> fetchUserAccountByUserId(@PathVariable("userId") String userId){
+
+        UserAccount userAccount=this.userAccountService.getUserAccountById(userId);
+        if(userAccount!=null)
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new GenericResponse(userAccount));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new GenericResponse("User Account Not Found For the Given Id"+userId));
+
+    }
+
+
+    @PutMapping("/v1.0")
+    public ResponseEntity<GenericResponse> updateUserAccountByUserId(@RequestBody UpdateUserAccountRequest updateUserAccountRequest){
+
+        UserAccount userAccount=this.userAccountService.updateUserAccount(updateUserAccountRequest.getUserId(),updateUserAccountRequest.getEmail())
+        if(userAccount!=null)
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new GenericResponse(userAccount));
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new GenericResponse("User Account Not Updated For the Given Id"+updateUserAccountRequest.getUserId()));
+
+    }
+
 }
