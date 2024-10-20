@@ -1,5 +1,6 @@
 package com.siemens.useraccountapi.services;
 
+import com.siemens.useraccountapi.exceptions.UserAccountNotFoundException;
 import com.siemens.useraccountapi.models.UserAccount;
 import com.siemens.useraccountapi.repositories.UserAccountRepository;
 import jakarta.persistence.EntityManager;
@@ -7,6 +8,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +23,12 @@ public class UserAccountServiceImpl implements UserAccountService{
     private EntityManager entityManager;
     @Override
     public UserAccount addUserAccount(UserAccount userAccount) {
+        UserAccount userAccountInstance=null;
         if(userAccount!=null)
-            return this.userAccountRepository.save(userAccount);
+            userAccountInstance=this.userAccountRepository.save(userAccount);
         else
-            return null;
+            new RuntimeException("User Account Instance Not Created");
+        return userAccountInstance;
     }
 
     @Override
@@ -33,8 +37,10 @@ public class UserAccountServiceImpl implements UserAccountService{
     }
 
     @Override
-    public UserAccount getUserAccountById(String userId) {
-        return this.userAccountRepository.findById(userId).orElse(null);
+    public UserAccount getUserAccountById(String userId)  {
+        return this.userAccountRepository.findById(userId)
+                .orElseThrow(()->new
+                        UserAccountNotFoundException("User Account Not Found for the given Id"));
     }
 
     @Override
@@ -50,12 +56,13 @@ public class UserAccountServiceImpl implements UserAccountService{
 
     @Override
     public UserAccount updateUserAccount(String userId, String email) {
-        UserAccount userAccount=getUserAccountById(userId);
-        if(userAccount!=null){
+        UserAccount userAccount=this.userAccountRepository.findById(userId).orElseThrow(()->
+                new
+                        UserAccountNotFoundException("User Account Not Found for the given Id"));
+
             userAccount.setEmail(email);
             return this.userAccountRepository.save(userAccount);
-        }else
-           return null;
+
     }
 
     @Override

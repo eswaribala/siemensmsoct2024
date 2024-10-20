@@ -91,12 +91,9 @@ public class UserController {
     public ResponseEntity<GenericResponse> updateUserAccountByUserId(@RequestBody UpdateUserAccountRequest updateUserAccountRequest){
 
         UserAccount userAccount=this.userAccountService.updateUserAccount(updateUserAccountRequest.getUserId(),updateUserAccountRequest.getEmail());
-        if(userAccount!=null)
+
             return ResponseEntity.status(HttpStatus.OK).body(
                     new GenericResponse(userAccount));
-        else
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new GenericResponse("User Account Not Updated For the Given Id"+updateUserAccountRequest.getUserId()));
 
     }
 

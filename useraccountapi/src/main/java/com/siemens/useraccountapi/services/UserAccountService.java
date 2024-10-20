@@ -1,5 +1,6 @@
 package com.siemens.useraccountapi.services;
 
+import com.siemens.useraccountapi.exceptions.UserAccountNotFoundException;
 import com.siemens.useraccountapi.models.UserAccount;
 import org.apache.catalina.User;
 
