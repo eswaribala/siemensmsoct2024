@@ -2,13 +2,17 @@ package com.siemens.useraccountapi.configurations;
 
 import com.siemens.useraccountapi.exceptions.JwtTokenMalformedException;
 import com.siemens.useraccountapi.exceptions.JwtTokenMissingException;
+import com.siemens.useraccountapi.models.Role;
 import com.siemens.useraccountapi.models.User;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Component
 public class JWTUtil {
@@ -18,6 +22,22 @@ public class JWTUtil {
 
     @Value("${jwt.validity.time}")
     private long validityTime;
+
+    public User getUserByToken(String token) {
+        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        User user = new User();
+        try{
+        user.setUserName(claims.getSubject());
+        List<Role> roles = Arrays.asList(claims.get("roles").toString()
+                        .split(",")).stream().map(r -> new Role(r))
+                .collect(Collectors.toList());
+        user.setRoles(roles);
+        return user;
+    }catch (Exception exception){
+            System.out.println(exception.getMessage());
+        }
+        return null;
+    }
 
     public String generateToken(User user){
         Claims claims= Jwts.claims().setSubject(user.getUserName());

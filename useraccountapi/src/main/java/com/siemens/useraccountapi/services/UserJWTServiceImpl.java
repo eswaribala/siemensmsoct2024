@@ -1,5 +1,6 @@
 package com.siemens.useraccountapi.services;
 
+import com.siemens.useraccountapi.models.Role;
 import com.siemens.useraccountapi.models.User;
 import com.siemens.useraccountapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,14 @@ public class UserJWTServiceImpl implements UserJWTService{
     @Override
     public User getUserByUserName(String userName) {
         return userRepository.findById(userName).orElse(null);
+    }
+
+    @Override
+    public List<Role> getRoles(String userName) {
+        User user=this.getUserByUserName(userName);
+        if(user!=null)
+            return user.getRoles();
+        else
+            return null;
     }
 }

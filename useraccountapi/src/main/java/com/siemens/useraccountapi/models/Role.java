@@ -24,4 +24,7 @@ public class Role {
     @Schema(hidden = true)
     private List<User> users;
 
+    public Role(String roleName) {
+        this.roleName = roleName;
+    }
 }
