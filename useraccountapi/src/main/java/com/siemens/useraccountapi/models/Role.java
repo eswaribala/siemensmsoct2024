@@ -23,4 +23,5 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     @Schema(hidden = true)
     private List<User> users;
+
 }
