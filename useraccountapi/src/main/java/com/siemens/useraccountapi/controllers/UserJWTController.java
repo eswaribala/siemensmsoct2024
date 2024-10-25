@@ -24,10 +24,11 @@ public class UserJWTController {
     @PostMapping("signup/v1.0")
     public ResponseEntity<GenericResponse> saveUser(@Valid @RequestBody JwtUserSignUpRequest jwtUserSignUpRequest){
         //DTO to Model
-
+        System.out.println(jwtUserSignUpRequest.getUserName()+","+jwtUserSignUpRequest.getPassword());
         User user=User.builder()
                 .userName(jwtUserSignUpRequest.getUserName())
                 .password(jwtUserSignUpRequest.getPassword())
+                .roles(jwtUserSignUpRequest.getRoles())
                 .build();
 
 

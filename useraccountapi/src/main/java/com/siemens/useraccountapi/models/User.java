@@ -20,7 +20,7 @@ public class User {
     @Id
     @Column(name="User_Name",nullable = false,length = 100)
     private String userName;
-    @Column(name="Password",nullable = false,length = 10)
+    @Column(name="Password",nullable = false,length = 150)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",

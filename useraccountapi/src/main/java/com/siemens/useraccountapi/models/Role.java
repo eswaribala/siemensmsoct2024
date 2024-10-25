@@ -16,6 +16,7 @@ import java.util.List;
 @Builder
 public class Role {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="Role_Id")
     private int roleId;
     @Column(name="Role_Name",nullable = false,length = 100)
