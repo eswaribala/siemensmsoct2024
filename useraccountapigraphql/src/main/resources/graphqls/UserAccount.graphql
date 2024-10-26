@@ -1,3 +1,10 @@
+schema {
+    query: UserAccountQuery
+    mutation: UserAccountMutation
+}
+
+
+scalar Date
 
 enum Gender{
     MALE,FEMALE,TRANSGENDER
@@ -17,4 +24,33 @@ type UserAccount{
 type FullName{
     firstName: String
     lastName: String
+}
+
+
+input UserAccountInput{
+    userId: String
+    fullName: FullNameInput
+    gender: Gender
+    email: String
+    password: String
+    dob: Date
+}
+
+input FullNameInput{
+    firstName: String
+    lastName: String
+}
+
+type UserAccountQuery{
+
+    getAllUserAccounts:[UserAccount]
+    getUserAccountById(userId: String):UserAccount
+    getUserAccountByEmail(email: String):[UserAccount]
+
+}
+
+type UserAccountMutation{
+    addUserAccount(userAccountInput:UserAccountInput):UserAccount
+    updateUserAccount(userId:String, email:String): UserAccount
+    deleteUserAccount(userId: String): Boolean
 }

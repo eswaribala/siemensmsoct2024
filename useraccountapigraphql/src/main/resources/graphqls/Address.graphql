@@ -1,0 +1,13 @@
+
+scalar Long
+type Address{
+
+    addressId: Long
+    doorNo: String
+    streetName: String
+    city: String
+    country: String
+    pinCode: Long
+    userAccount: UserAccount
+
+}
