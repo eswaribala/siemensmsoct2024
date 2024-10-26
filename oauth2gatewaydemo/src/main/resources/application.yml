@@ -6,10 +6,10 @@ spring:
       default-filters:
         - TokenRelay
       routes:
-        - id: Customer-API
+        - id: UserAccountAPI
           uri: http://127.0.0.1:7072
           predicates:
-            - Path=/customers/**
+            - Path=/useraccounts/**
           filters:
             - RemoveRequestHeader=Cookie
   security:
