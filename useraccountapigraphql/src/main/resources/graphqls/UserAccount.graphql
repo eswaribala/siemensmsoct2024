@@ -1,0 +1,20 @@
+
+enum Gender{
+    MALE,FEMALE,TRANSGENDER
+}
+
+type UserAccount{
+
+    userId: String
+    fullName: FullName
+    gender: Gender
+    email: String
+    password: String
+    dob: Date
+}
+
+
+type FullName{
+    firstName: String
+    lastName: String
+}
