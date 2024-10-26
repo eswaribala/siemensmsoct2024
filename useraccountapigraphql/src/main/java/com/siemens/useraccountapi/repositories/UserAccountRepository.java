@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface  UserAccountRepository  extends JpaRepository<UserAccount, String> {
 
-    @Query("from UserAccount u where u.email=:email")
-    public List<UserAccount> findUserAccountByEmail(@Param("email") String email);
-    public List<UserAccount> findByEmail(String email);
+    //@Query("from UserAccount u where u.email=:email")
+    //public List<UserAccount> findUserAccountByEmail(@Param("email") String email);
+    //public List<UserAccount> findByEmail(String email);
 }

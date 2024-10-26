@@ -1,8 +1,0 @@
-interface Payment{
-    transactionId: Long
-    buyerName: String
-    amount: Long
-    dot: Date
-
-}
-
