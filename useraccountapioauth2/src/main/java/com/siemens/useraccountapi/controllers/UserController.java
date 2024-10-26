@@ -24,7 +24,7 @@ public class UserController {
     private UserAccountService userAccountService;
 
     @PostMapping("/v1.0")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ResponseEntity<GenericResponse> saveUserAccount(@Valid @RequestBody UserAccountRequest userAccountRequest){
            //DTO to Model
 
@@ -51,8 +51,9 @@ public class UserController {
                             "because of invalid data"));
 
     }
-    @PreAuthorize("hasRole('ROLE_USER')")
+
     @GetMapping("/v1.0")
+    @PreAuthorize("hasAuthority('SCOPE_Customer')")
     public ResponseEntity<GenericResponse> fetchAllUserAccounts(){
 
         List<UserAccount> userAccountList=this.userAccountService.getAllUserAccounts();
