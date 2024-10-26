@@ -8,17 +8,15 @@ import org.springframework.web.server.WebSession;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class OAuth2Controller {
+public class ApiController {
+	@GetMapping(value = "/token")
+	public Mono<String> getHome(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+		return Mono.just(authorizedClient.getAccessToken().getTokenValue());
+	}
 
-    @GetMapping("/token")
-    public Mono<String> generateJWTToken(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient){
-        return Mono.just(authorizedClient.getAccessToken().getTokenValue());
-    }
-
-    @GetMapping("/")
-    public Mono<String> generateSessionForToken(WebSession session){
-
-            return Mono.just(session.getId());
-    }
+	@GetMapping("/")
+	public Mono<String> index(WebSession session) {
+		return Mono.just(session.getId());
+	}
 
 }
