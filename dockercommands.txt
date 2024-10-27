@@ -1,0 +1,19 @@
+#check images
+docker images
+#check containers
+docker container ls -a
+#remove the image
+docker rmi <image name>
+#to create the network
+docker network create <networkname>
+#to see the network ls
+docker network ls
+#to run all the containers
+docker-compose up
+#to stop all the containers
+docker-compose down  
+  
+  
+  
+  
+  
