@@ -42,7 +42,7 @@ public class DbConfiguration {
         dataSourceBuilder=DataSourceBuilder.create();
         dataSourceBuilder.url(dbUrl);
         dataSourceBuilder.username("root");
-        dataSourceBuilder.password("vignesh");
+        dataSourceBuilder.password("password");
         dataSourceBuilder.driverClassName(driver);
         return dataSourceBuilder.build();
 

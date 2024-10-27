@@ -32,8 +32,7 @@ services:
         window: 50s
     ports:
        #- 8060-8070:7070
-        - 7072
-      - :7072
+      - 7072:7072
     volumes:
       - /data/compose-app
     #networks:
@@ -45,7 +44,7 @@ services:
   #boanetwork:
 networks: 
   default: 
-    external: 
-      name: siemensnetwork
+    external: true
+    name: siemensnetwork
 
   
