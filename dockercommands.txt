@@ -18,6 +18,9 @@ docker run  --name=confgserver -p 8888:8888 --network siemensnetwork -e SPRING_C
 
 #to test config server
 http://localhost:8888/application-common.properties
-  
+
+#to create vault server
+docker run --rm --cap-add=IPC_LOCK -e VAULT_ADDR=http://localhost:8200 -p 8200:8200 --network siemensnetwork  -d --name=dev-vault vault:1.2.2
+
   
   
