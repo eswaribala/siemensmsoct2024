@@ -6,9 +6,10 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=siemensuseraccountdb
-      - MYSQL_DATABASE=siemensuseraccountproddb
-      - MYSQL_DATABASE=siemensuseraccountqadb
       - MYSQL_DATABASE=siemensuseraccounttestdb
+      - MYSQL_DATABASE=siemensuseraccountqadb
+      - MYSQL_DATABASE=siemensuseraccountproddb
+
     volumes:
       - /data/mysql
     healthcheck:        
@@ -42,9 +43,9 @@ services:
 ### put all the networks here
 #networks:
   #boanetwork:
-networks: 
-  default: 
-    external: true
-    name: siemensnetwork
+networks:
+  default:
+    external:
+      name: siemensnetwork
 
   
