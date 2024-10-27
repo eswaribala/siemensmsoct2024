@@ -24,6 +24,7 @@ docker run --rm --cap-add=IPC_LOCK -e VAULT_ADDR=http://localhost:8200 -p 8200:8
 
 #to see the logs
 docker logs dev-vault
-
+docker container stop <container id>
+docker container rm <container id>
   
   
