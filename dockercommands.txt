@@ -13,7 +13,10 @@ docker-compose up
 #to stop all the containers
 docker-compose down  
   
-  
+#to create configuration server
+docker run  --name=confgserver -p 8888:8888 --network siemensnetwork -e SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/eswaribala/siemensmsconfigrepo2024.git -d springcloud/configserver
+
+
   
   
   
