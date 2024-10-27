@@ -41,7 +41,7 @@ services:
   #boanetwork:
 networks: 
   default: 
-    external: 
-      name: siemensnetwork
+    name: siemensnetwork
+    external: true
 
   
