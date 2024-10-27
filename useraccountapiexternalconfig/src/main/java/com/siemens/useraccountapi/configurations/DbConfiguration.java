@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-//@EnableConfigurationProperties(VaultConfiguration.class)
+@EnableConfigurationProperties(VaultConfiguration.class)
 public class DbConfiguration {
 
     @Value("${spring.datasource.url}")
@@ -18,16 +18,16 @@ public class DbConfiguration {
     private String driver;
 
     private DataSourceBuilder dataSourceBuilder;
-  //  private final VaultConfiguration vaultConfiguration;
+    private final VaultConfiguration vaultConfiguration;
 
-   /*
+
     public DbConfiguration (VaultConfiguration vaultConfig)
     {
 
         this.vaultConfiguration=vaultConfig;
     }
 
-*/
+
     @Bean
     public DataSource getDataSource()
     {
@@ -35,14 +35,13 @@ public class DbConfiguration {
         System.out.println(driver);
 
         System.out.println("Entering Given Env.....");
-      //  System.out.println("User Name..."+vaultConfiguration.getMysqlusername());
-       // System.out.println("Password..."+vaultConfiguration.getPassword());
-        //System.out.println("User Name..."+vaultConfiguration.getUsername1());
-        //System.out.println("Password..."+vaultConfiguration.getPassword1());
+         System.out.println("User Name..."+vaultConfiguration.getMysqlusername());
+        System.out.println("Password..."+vaultConfiguration.getPassword());
+
         dataSourceBuilder=DataSourceBuilder.create();
         dataSourceBuilder.url(dbUrl);
-        dataSourceBuilder.username("root");
-        dataSourceBuilder.password("password");
+        dataSourceBuilder.username(vaultConfiguration.getMysqlusername());
+        dataSourceBuilder.password(vaultConfiguration.getPassword());
         dataSourceBuilder.driverClassName(driver);
         return dataSourceBuilder.build();
 
