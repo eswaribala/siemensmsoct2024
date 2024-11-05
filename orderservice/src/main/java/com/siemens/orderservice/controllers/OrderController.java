@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("orders")
@@ -23,19 +24,15 @@ public class OrderController {
     private String message;
 
     @PostMapping("/v1.0")
-    public ResponseEntity<String> publishOrderDetails(@RequestBody Order order) throws JsonProcessingException {
+    public CompletableFuture<ResponseEntity<String>> publishOrderDetails(@RequestBody Order order) throws JsonProcessingException {
 
-
-        orderPublisher.publishMessage(order).thenAccept(metadata->{
-            message=metadata.getRecordMetadata().topic()+","+metadata.getRecordMetadata().partition();
-        }).exceptionally(ex->{
-            message=ex.getMessage();
-            return null;
-        });
-
-        return ResponseEntity.status(HttpStatus.OK).body(message+"->"+ LocalDate.now());
-
+        return  orderPublisher.publishMessage(order)
+                .thenApply(result->ResponseEntity.status(HttpStatus.OK)
+                        .body(result.getRecordMetadata().topic()+","+result.getRecordMetadata().partition()+","+result.getRecordMetadata().offset()))
+                .exceptionally(ex-> {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+                });
     }
 
-    
+
 }
