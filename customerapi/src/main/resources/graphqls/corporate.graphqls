@@ -1,0 +1,43 @@
+type Corporate implements Customer{
+    customerId: Long
+    name: FullName
+    contactNo: Long
+    password: String
+    email: String
+    companyType:CompanyType
+
+}
+
+
+
+enum CompanyType{
+    PRIVATE,PUBLIC,NGO
+}
+
+
+
+
+extend type Query{
+
+    findAllCorporates:[Corporate]
+    findCorporateByCustomerId(customerId: Long): Corporate
+
+
+
+}
+
+input CorporateInput{
+    customerId: Long
+    name: FullNameInput
+    contactNo: Long
+    password: String
+    email: String
+    companyType:CompanyType
+}
+
+extend type Mutation{
+    addCorporate(corporateInput:CorporateInput):Corporate
+    updateCorporate(customerId:Long, email:String):Corporate
+    deleteCorporate(customerId:Long):Boolean
+
+}
