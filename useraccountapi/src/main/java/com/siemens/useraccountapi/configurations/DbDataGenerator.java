@@ -1,27 +1,15 @@
-package com.siemens.useraccountapi;
+package com.siemens.useraccountapi.configurations;
 
 import com.github.javafaker.Faker;
 import com.siemens.useraccountapi.models.Role;
 import com.siemens.useraccountapi.models.User;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-//import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-
-@SpringBootApplication
-@EnableCaching
-//@EnableDiscoveryClient
-public class UserAccountApiApplication implements CommandLineRunner {
-
-    public static void main(String[] args) {
-
-        SpringApplication.run(UserAccountApiApplication.class, args);
-    }
-
+@Component
+public class DbDataGenerator implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         List<User> userList=new ArrayList<>();
@@ -30,9 +18,9 @@ public class UserAccountApiApplication implements CommandLineRunner {
         for(int i=0;i<100;i++){
             roleList=new ArrayList<>();
             roleList.add(new Role(faker.random().nextInt(1,100000),"ROLE_ADMIN",null));
-           userList.add(new User(faker.name().firstName(),faker.internet().password(),roleList));
+            userList.add(new User(faker.name().firstName(),faker.internet().password(),roleList));
         }
+        System.out.println("Generated from Db Data Generator.........");
         userList.stream().forEach(System.out::println);
-
     }
 }
